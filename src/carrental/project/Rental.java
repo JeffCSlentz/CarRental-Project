@@ -12,7 +12,7 @@ import java.util.Calendar;
  * @author Jcszk9
  */
 public class Rental {
-    private enum Status {RENTED, RETURNED};
+    public enum Status {RENTED, RETURNED};
     
     Calendar rentDate;
     Calendar returnDate;

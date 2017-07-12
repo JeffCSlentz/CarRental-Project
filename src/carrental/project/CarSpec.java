@@ -10,7 +10,7 @@ package carrental.project;
  * @author Jcszk9
  */
 public class CarSpec {
-    private enum Size{SMALL, MEDIUM, LARGE};
+    public enum Size{SMALL, MEDIUM, LARGE};
     
     String make;
     String model;

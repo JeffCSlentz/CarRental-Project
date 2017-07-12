@@ -15,7 +15,10 @@ public class CarRentalProject {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Controller controller = new Controller();
+        
+        MainFrame mainFrame = new MainFrame(controller);
+        mainFrame.setVisible(true);
     }
     
 }

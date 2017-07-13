@@ -9,7 +9,7 @@ package carrental.project;
  *
  * @author Jcszk9
  */
-public class Customer {
+public class Customer implements Searchable {
     String name;
     String phone;
     String address;

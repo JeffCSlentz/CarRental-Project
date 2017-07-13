@@ -43,6 +43,11 @@ public class Customer implements Searchable {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    @Override
+    public Searchable Search(String find) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
 }

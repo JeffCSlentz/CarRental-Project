@@ -118,9 +118,9 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void initCustomers() {
         DefaultTableModel model = (DefaultTableModel) this.customerTable.getModel();
-        LinkedList<Customer> customers = controller.getCustomers();
-        for(Customer customer: customers){
-            model.addRow(new Object[]{customer.getName(), customer.getPhone(), customer.getAddress()});
+        LinkedList<Searchable> customers = controller.getCustomers();
+        for(Searchable searchable: customers){
+            model.addRow(new Object[]{Searchable.getName(), customer.getPhone(), customer.getAddress()});
         }
         
         this.customerTable.setModel(model);

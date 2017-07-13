@@ -11,7 +11,12 @@ import java.util.Calendar;
  *
  * @author Jcszk9
  */
-public class Rental {
+public class Rental implements Searchable {
+
+    @Override
+    public Searchable Search(String find) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     public enum Status {RENTED, RETURNED};
     
     Car car;

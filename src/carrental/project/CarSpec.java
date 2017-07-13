@@ -9,7 +9,12 @@ package carrental.project;
  *
  * @author Jcszk9
  */
-public class CarSpec {
+public class CarSpec implements Searchable {
+
+    @Override
+    public Searchable Search(String find) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     public enum Size{SMALL, MEDIUM, LARGE, HUGE};
     
     String make;

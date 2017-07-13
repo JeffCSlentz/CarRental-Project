@@ -10,5 +10,11 @@ package carrental.project;
  * @author Jcszk9
  */
 public class Car {
+    String ID;
+    CarSpec carSpec;
     
+    public Car(String ID, CarSpec carSpec) {
+        this.ID = ID;
+        this.carSpec = carSpec;
+    }
 }

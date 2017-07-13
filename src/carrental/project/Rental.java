@@ -14,11 +14,16 @@ import java.util.Calendar;
 public class Rental {
     public enum Status {RENTED, RETURNED};
     
+    Car car;
+    Customer customer;
     Calendar rentDate;
     Calendar returnDate;
     Status status;
+    
 
-    public Rental() {
+    public Rental(Car car, Customer customer) {
+        this.car = car;
+        this.customer = customer;
     }
 
     public Calendar getRentDate() {

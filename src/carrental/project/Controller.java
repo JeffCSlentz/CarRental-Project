@@ -5,10 +5,31 @@
  */
 package carrental.project;
 
+import java.util.LinkedList;
+
 /**
  *
  * @author Jcszk9
  */
 public class Controller {
+    LinkedList<Customer> customers = new LinkedList();
+    LinkedList<CarSpec> carSpecs = new LinkedList();
+    LinkedList<Car> cars = new LinkedList();
+    LinkedList<Rental> rentals = new LinkedList();
     
+    public void addCarSpec(){
+        
+    }
+    
+    public void addCustomer(){
+        
+    }
+    
+    public void addRental(){
+        
+    }
+    
+    public void addCar(){
+        
+    }
 }

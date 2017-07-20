@@ -19,6 +19,7 @@ public class Controller {
     LinkedList<Searchable> rentals = new LinkedList();
     enum searchEnum{CUSTOMER, CARSPEC, CAR, RENTAL};
     int currentRentalIndex = 0;
+    
     public void addCarSpec(CarSpec carSpec){
         carSpecs.add(carSpec);
     }

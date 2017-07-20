@@ -62,17 +62,8 @@ public class CarRentalProject {
         MainFrame mainFrame = new MainFrame(controller);
         mainFrame.setVisible(true);
         
-        String url = "jdbc:mysql://KC-SCE-APPDB01:3306/jcszk9?zeroDateTimeBehavior=convertToNull";
-        String username = "jcszk9";
-        String password = "qWf3DexVlWe8n5Nd1";
-
-        System.out.println("Connecting database...");
-
-        try (Connection connection = DriverManager.getConnection(url, username, password)) {
-            System.out.println("Database connected!");
-        } catch (SQLException e) {
-            throw new IllegalStateException("Cannot connect the database!", e);
-}
+        
+       
     }
     
 }

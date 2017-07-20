@@ -5,6 +5,9 @@
  */
 package carrental.project;
 
+import java.util.LinkedList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Jcszk9
@@ -14,8 +17,15 @@ public class AccountFrame extends javax.swing.JFrame {
     /**
      * Creates new form AccountFrame
      */
-    public AccountFrame() {
+    Controller controller;
+    Customer customer;
+    public AccountFrame(Controller controller, Customer customer) {
+        this.controller = controller;
+        this.customer = customer;
         initComponents();
+        fillFindCarTable();
+        fillRentedCarsTable();
+        fillReturnedCarsTable();
     }
 
     /**
@@ -30,21 +40,20 @@ public class AccountFrame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         usernameLabel = new javax.swing.JLabel();
-        accountLabel = new javax.swing.JLabel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        mainTabbedPane = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         searchField = new javax.swing.JTextField();
         searchButton = new javax.swing.JButton();
         rentSelectedButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        findCarTable = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        rentedCarsTable = new javax.swing.JTable();
         returnSelectedButton = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        returnedCarsTable = new javax.swing.JTable();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -61,19 +70,22 @@ public class AccountFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        usernameLabel.setText("Username's");
+        usernameLabel.setText(customer.getName()+ "'s Account");
 
-        accountLabel.setText("Account");
-
-        jTabbedPane1.setName(""); // NOI18N
+        mainTabbedPane.setName(""); // NOI18N
 
         jPanel1.setName(""); // NOI18N
 
         searchButton.setText("Search");
 
         rentSelectedButton.setText("Rent Selected");
+        rentSelectedButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rentSelectedButtonActionPerformed(evt);
+            }
+        });
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        findCarTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -81,7 +93,7 @@ public class AccountFrame extends javax.swing.JFrame {
                 "Select", "ID", "Make", "Model", "Year", "Size"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(findCarTable);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -114,9 +126,9 @@ public class AccountFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Find Car", jPanel1);
+        mainTabbedPane.addTab("Find Car", jPanel1);
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        rentedCarsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -124,7 +136,7 @@ public class AccountFrame extends javax.swing.JFrame {
                 "Select", "ID", "Make", "Model", "Year", "Rented"
             }
         ));
-        jScrollPane3.setViewportView(jTable3);
+        jScrollPane3.setViewportView(rentedCarsTable);
 
         returnSelectedButton.setText("Return Selected");
 
@@ -151,9 +163,9 @@ public class AccountFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Rented Cars", jPanel2);
+        mainTabbedPane.addTab("Rented Cars", jPanel2);
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        returnedCarsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -161,7 +173,7 @@ public class AccountFrame extends javax.swing.JFrame {
                 "Select", "ID", "Make", "Model", "Year", "Rented", "Returned"
             }
         ));
-        jScrollPane4.setViewportView(jTable4);
+        jScrollPane4.setViewportView(returnedCarsTable);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -180,7 +192,7 @@ public class AccountFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Returned Cars", jPanel3);
+        mainTabbedPane.addTab("Returned Cars", jPanel3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -189,11 +201,9 @@ public class AccountFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane1)
+                    .addComponent(mainTabbedPane)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(usernameLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(accountLabel)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -201,54 +211,29 @@ public class AccountFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(usernameLabel)
-                    .addComponent(accountLabel))
+                .addComponent(usernameLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1)
+                .addComponent(mainTabbedPane)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AccountFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AccountFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AccountFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AccountFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void rentSelectedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentSelectedButtonActionPerformed
+        int rowNum = this.findCarTable.getSelectedRow();
+        int colNum = 1;
+        String ID = (String) this.findCarTable.getValueAt(rowNum, colNum);
+        
+        Car car = (Car) controller.searchFor(ID, Controller.searchEnum.CAR);
+        
+        this.mainTabbedPane.setSelectedIndex(1);
+    }//GEN-LAST:event_rentSelectedButtonActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AccountFrame().setVisible(true);
-            }
-        });
-    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel accountLabel;
+    private javax.swing.JTable findCarTable;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -256,15 +241,35 @@ public class AccountFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTable4;
+    private javax.swing.JTabbedPane mainTabbedPane;
     private javax.swing.JButton rentSelectedButton;
+    private javax.swing.JTable rentedCarsTable;
     private javax.swing.JButton returnSelectedButton;
+    private javax.swing.JTable returnedCarsTable;
     private javax.swing.JButton searchButton;
     private javax.swing.JTextField searchField;
     private javax.swing.JLabel usernameLabel;
     // End of variables declaration//GEN-END:variables
+
+    private void fillFindCarTable() {
+        DefaultTableModel model = (DefaultTableModel) this.findCarTable.getModel();
+        LinkedList<Searchable> cars = controller.getAvailableCars();       
+        for(Searchable searchable: cars){
+            Car car = (Car) searchable;
+            CarSpec carspec = car.getCarSpec();
+            boolean something = false;
+            model.addRow(new Object[]{something, car.getID(), carspec.getMake(), carspec.getModel(), carspec.getYear(), carspec.getSize()});
+      
+        }
+        this.findCarTable.setModel(model);
+    }
+
+    private void fillRentedCarsTable() {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void fillReturnedCarsTable() {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

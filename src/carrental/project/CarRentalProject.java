@@ -5,6 +5,10 @@
  */
 package carrental.project;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 /**
  *
  * @author Jcszk9
@@ -31,7 +35,7 @@ public class CarRentalProject {
         //Customers
         Customer customer1 = new Customer("Mr. Bean", "123-684-1023", "1023 Silly Lane, UK");
         Customer customer2 = new Customer("Skelebro", "666-666-6667", "666 Spook Street, USA");
-        Customer customer3 = new Customer("Captain America", "816-227-8246", "872 Patrio Avenue, USA");
+        Customer customer3 = new Customer("Captain America", "816-227-8246", "872 Patriot Avenue, USA");
         
         controller.addCustomer(customer1);
         controller.addCustomer(customer2);
@@ -57,6 +61,18 @@ public class CarRentalProject {
         
         MainFrame mainFrame = new MainFrame(controller);
         mainFrame.setVisible(true);
+        
+        String url = "jdbc:mysql://KC-SCE-APPDB01:3306/jcszk9?zeroDateTimeBehavior=convertToNull";
+        String username = "jcszk9";
+        String password = "qWf3DexVlWe8n5Nd1";
+
+        System.out.println("Connecting database...");
+
+        try (Connection connection = DriverManager.getConnection(url, username, password)) {
+            System.out.println("Database connected!");
+        } catch (SQLException e) {
+            throw new IllegalStateException("Cannot connect the database!", e);
+}
     }
     
 }

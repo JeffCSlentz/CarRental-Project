@@ -14,11 +14,12 @@ import java.util.Calendar;
 public class Rental implements Searchable {
 
     @Override
-    public Searchable Search(String find) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean matches(String find) {
+        return ID.equals(find);
     }
     public enum Status {RENTED, RETURNED};
     
+    String ID;
     Car car;
     Customer customer;
     Calendar rentDate;
@@ -26,11 +27,17 @@ public class Rental implements Searchable {
     Status status;
     
 
-    public Rental(Car car, Customer customer) {
+    public Rental(String ID, Car car, Customer customer) {
+        this.ID = ID;
         this.car = car;
         this.customer = customer;
+        this.status = Status.RENTED;
+        this.rentDate = Calendar.getInstance();
     }
 
+    public Car getCar(){
+        return car;
+    }
     public Calendar getRentDate() {
         return rentDate;
     }

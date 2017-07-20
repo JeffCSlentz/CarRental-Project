@@ -5,6 +5,8 @@
  */
 package carrental.project;
 
+import java.util.LinkedList;
+
 /**
  *
  * @author Jcszk9
@@ -18,8 +20,26 @@ public class Car implements Searchable {
         this.carSpec = carSpec;
     }
 
-    @Override
-    public Searchable Search(String find) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String getID() {
+        return ID;
     }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+    public CarSpec getCarSpec() {
+        return carSpec;
+    }
+
+    public void setCarSpec(CarSpec carSpec) {
+        this.carSpec = carSpec;
+    }
+    
+    
+    @Override
+    public boolean matches(String find) {
+        return ID.equals(find);
+    }
+   
 }

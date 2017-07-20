@@ -45,8 +45,12 @@ public class Customer implements Searchable {
     }
 
     @Override
-    public Searchable Search(String find) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean matches(String find) {
+        if( name.equals(find)){
+            return true;
+        } else {
+            return false;
+        }
     }
     
     

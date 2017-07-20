@@ -12,8 +12,8 @@ package carrental.project;
 public class CarSpec implements Searchable {
 
     @Override
-    public Searchable Search(String find) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean matches(String find) {
+        return model.equals(find);
     }
     public enum Size{SMALL, MEDIUM, LARGE, HUGE};
     

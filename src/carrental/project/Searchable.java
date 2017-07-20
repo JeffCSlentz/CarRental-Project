@@ -10,5 +10,5 @@ package carrental.project;
  * @author Jcszk9
  */
 public interface Searchable {
-    public Searchable Search(String find);
+    public boolean matches(String item);
 }

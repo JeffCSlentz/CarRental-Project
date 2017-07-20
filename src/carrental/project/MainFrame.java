@@ -6,6 +6,7 @@
 package carrental.project;
 
 import java.util.LinkedList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -58,7 +59,7 @@ public class MainFrame extends javax.swing.JFrame {
 
             },
             new String [] {
-
+                "Name", "Phone", "Address"
             }
         ));
         jScrollPane2.setViewportView(customerTable);
@@ -102,8 +103,14 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void rentCarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentCarButtonActionPerformed
-        int o = this.customerTable.getSelectedRow();
-        String name = (String) this.customerTable.getValueAt(o, 0);
+        int rowNum = this.customerTable.getSelectedRow();
+        int colNum = 0;
+        String name = (String) this.customerTable.getValueAt(rowNum, colNum);
+        
+        Customer customer = (Customer) controller.searchFor(name, Controller.searchEnum.CUSTOMER);
+        
+        AccountFrame accountFrame= new AccountFrame(controller, customer);
+        accountFrame.setVisible(true);
     }//GEN-LAST:event_rentCarButtonActionPerformed
 
 
@@ -120,7 +127,8 @@ public class MainFrame extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) this.customerTable.getModel();
         LinkedList<Searchable> customers = controller.getCustomers();
         for(Searchable searchable: customers){
-            model.addRow(new Object[]{Searchable.getName(), customer.getPhone(), customer.getAddress()});
+            Customer customer = (Customer) searchable;
+            model.addRow(new Object[]{customer.getName(), customer.getPhone(), customer.getAddress()});
         }
         
         this.customerTable.setModel(model);

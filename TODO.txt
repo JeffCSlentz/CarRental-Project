@@ -1,12 +1,20 @@
+-JEFF
 -Implement Search button/Instant filtering. (MainFrame).
+-JOSE
 -Implement Rented Cars button. (MainFrame)
 
+-JOSE
 -Implement filling Rented Cars tab with data. (AccountFrame)
+-JOSE
 -Implement filling returned cars tab with data. (AccountFrame)
 
 
+-JEFF
 -Implement Search button/Instant filtering. (AccountFrame)
+
+-JEFF
 -Implement Rent Selected button. (AccountFrame)
+-JEFF
 -Implement Return Selected button. (AccountFrame)
 
 

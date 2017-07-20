@@ -1,8 +1,12 @@
--Implement filling Rented Cars tab with data.
--Implement filling returned cars tab with data.
+-Implement Search button/Instant filtering. (MainFrame).
+-Implement Rented Cars button. (MainFrame)
+
+-Implement filling Rented Cars tab with data. (AccountFrame)
+-Implement filling returned cars tab with data. (AccountFrame)
 
 
--Implement Rent Selected button
--Implement Return Selected button
+-Implement Search button/Instant filtering. (AccountFrame)
+-Implement Rent Selected button. (AccountFrame)
+-Implement Return Selected button. (AccountFrame)
 
 

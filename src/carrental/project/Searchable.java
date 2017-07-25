@@ -11,4 +11,5 @@ package carrental.project;
  */
 public interface Searchable {
     public boolean matches(String item);
+    public boolean includes(String item);
 }

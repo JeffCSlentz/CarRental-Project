@@ -11,10 +11,7 @@ package carrental.project;
  */
 public class CarSpec implements Searchable {
 
-    @Override
-    public boolean matches(String find) {
-        return model.equals(find);
-    }
+    
     public enum Size{SMALL, MEDIUM, LARGE, HUGE};
     
     String make;
@@ -61,6 +58,13 @@ public class CarSpec implements Searchable {
         this.size = size;
     }
     
-    
+    @Override
+    public boolean matches(String find) {
+        return model.equals(find);
+    }
+    @Override
+    public boolean includes(String item) {
+        return (model.contains(item) || make.contains(item));
+    }
     
 }

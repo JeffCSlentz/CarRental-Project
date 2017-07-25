@@ -76,6 +76,12 @@ public class AccountFrame extends javax.swing.JFrame {
 
         jPanel1.setName(""); // NOI18N
 
+        searchField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchFieldKeyReleased(evt);
+            }
+        });
+
         searchButton.setText("Search");
 
         rentSelectedButton.setText("Rent Selected");
@@ -139,6 +145,11 @@ public class AccountFrame extends javax.swing.JFrame {
         jScrollPane3.setViewportView(rentedCarsTable);
 
         returnSelectedButton.setText("Return Selected");
+        returnSelectedButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                returnSelectedButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -227,9 +238,27 @@ public class AccountFrame extends javax.swing.JFrame {
         String ID = (String) this.findCarTable.getValueAt(rowNum, colNum);
         
         Car car = (Car) controller.searchFor(ID, Controller.searchEnum.CAR);
+        controller.rentCar(car, customer);
         
+        updateTables();
         this.mainTabbedPane.setSelectedIndex(1);
     }//GEN-LAST:event_rentSelectedButtonActionPerformed
+
+    private void searchFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyReleased
+        filterCars();
+    }//GEN-LAST:event_searchFieldKeyReleased
+
+    private void returnSelectedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnSelectedButtonActionPerformed
+        int rowNum = this.rentedCarsTable.getSelectedRow();
+        int colNum = 1;
+        String ID = (String) this.findCarTable.getValueAt(rowNum, colNum);
+        
+        Car car = (Car) controller.searchFor(ID, Controller.searchEnum.CAR);
+        
+        //TODO: This.
+        //controller.returnCar(rental);
+        this.mainTabbedPane.setSelectedIndex(2);
+    }//GEN-LAST:event_returnSelectedButtonActionPerformed
 
 
 
@@ -272,5 +301,24 @@ public class AccountFrame extends javax.swing.JFrame {
 
     private void fillReturnedCarsTable() {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void filterCars() {
+        DefaultTableModel model = (DefaultTableModel) this.findCarTable.getModel();
+        model.setNumRows(0);
+        LinkedList<Searchable> cars = controller.filterBy(this.searchField.getText(), Controller.searchEnum.CAR);
+        
+        for(Searchable searchable: cars){
+            Customer customer = (Customer) searchable;
+            model.addRow(new Object[]{customer.getName(), customer.getPhone(), customer.getAddress()});
+        }
+        
+        this.findCarTable.setModel(model);
+    }
+
+    private void updateTables() {
+        filterCars();
+        fillRentedCarsTable();
+        fillReturnedCarsTable();
     }
 }

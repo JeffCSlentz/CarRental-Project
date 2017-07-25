@@ -72,6 +72,30 @@ public class Controller {
         Rental rental = new Rental( Integer.toString(currentRentalIndex++), car, customer);
         addRental(rental);
     }
+    
+    public LinkedList<Searchable> filterBy(String filter, searchEnum sE){
+        LinkedList<Searchable> searchables;
+        LinkedList<Searchable> matches = new LinkedList();
+        switch (sE) {
+            case CAR:       searchables = getAvailableCars(); //This will cause a problem if there's a search bar on the retned cars page.
+                            break;
+            case CARSPEC:   searchables = carSpecs;
+                            break;
+            case CUSTOMER:  searchables = customers;
+                            break;
+            case RENTAL:    searchables = rentals;
+                            break;
+            default:        searchables = customers;
+                            break;
+        }   
+        for(Searchable searchable: searchables){
+            if (searchable.includes(filter)){
+                matches.add(searchable);
+            }
+        }
+        
+        return matches;     
+    }
     public Searchable searchFor(String find, searchEnum sE){
         LinkedList<Searchable> searchables;
         switch (sE) {

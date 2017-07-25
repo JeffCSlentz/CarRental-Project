@@ -1,5 +1,6 @@
--JEFF
--Implement Search button/Instant filtering. (MainFrame).
++JEFF (DONE)
++Implement Search button/Instant filtering. (MainFrame).
+
 -JOSE
 -Implement Rented Cars button. (MainFrame)
 
@@ -9,12 +10,17 @@
 -Implement filling returned cars tab with data. (AccountFrame)
 
 
--JEFF
--Implement Search button/Instant filtering. (AccountFrame)
++JEFF (DONE)
++Implement Search button/Instant filtering. (AccountFrame)
 
--JEFF
--Implement Rent Selected button. (AccountFrame)
++JEFF (DONE)
++Implement Rent Selected button. (AccountFrame)
 -JEFF
 -Implement Return Selected button. (AccountFrame)
 
+-JEFF
+-The Rented Cars table is ambiguous. Is the ID the car ID or the rental ID? I think the table needs both.
+-This is important for finding the rental when the user clicks return selected.
+-The car contains no reference to the rental, so just having the car is useless.
+-OR, make sure cars get references to their rentals. not a big fan though.
 

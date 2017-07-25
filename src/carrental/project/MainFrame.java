@@ -34,7 +34,7 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
+        searchField = new javax.swing.JTextField();
         searchButton = new javax.swing.JButton();
         rentCarButton = new javax.swing.JButton();
         rentedCarsButton = new javax.swing.JButton();
@@ -43,7 +43,29 @@ public class MainFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        searchField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchFieldActionPerformed(evt);
+            }
+        });
+        searchField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                searchFieldKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchFieldKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                searchFieldKeyTyped(evt);
+            }
+        });
+
         searchButton.setText("Search");
+        searchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchButtonActionPerformed(evt);
+            }
+        });
 
         rentCarButton.setText("Rent Car");
         rentCarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -73,7 +95,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextField1)
+                        .addComponent(searchField)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(searchButton))
                     .addGroup(layout.createSequentialGroup()
@@ -88,7 +110,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(searchButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -113,19 +135,52 @@ public class MainFrame extends javax.swing.JFrame {
         accountFrame.setVisible(true);
     }//GEN-LAST:event_rentCarButtonActionPerformed
 
+    private void searchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchFieldActionPerformed
+
+    private void searchFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyPressed
+
+    }//GEN-LAST:event_searchFieldKeyPressed
+
+    private void searchFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyTyped
+        
+    }//GEN-LAST:event_searchFieldKeyTyped
+
+    private void searchFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyReleased
+        filterCustomers();
+    }//GEN-LAST:event_searchFieldKeyReleased
+
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
+        filterCustomers();
+    }//GEN-LAST:event_searchButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable customerTable;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JButton rentCarButton;
     private javax.swing.JButton rentedCarsButton;
     private javax.swing.JButton searchButton;
+    private javax.swing.JTextField searchField;
     // End of variables declaration//GEN-END:variables
 
     private void initCustomers() {
         DefaultTableModel model = (DefaultTableModel) this.customerTable.getModel();
         LinkedList<Searchable> customers = controller.getCustomers();
+        for(Searchable searchable: customers){
+            Customer customer = (Customer) searchable;
+            model.addRow(new Object[]{customer.getName(), customer.getPhone(), customer.getAddress()});
+        }
+        
+        this.customerTable.setModel(model);
+    }
+
+    private void filterCustomers() {
+        DefaultTableModel model = (DefaultTableModel) this.customerTable.getModel();
+        model.setNumRows(0);
+        LinkedList<Searchable> customers = controller.filterBy(this.searchField.getText(), Controller.searchEnum.CUSTOMER);
+        
         for(Searchable searchable: customers){
             Customer customer = (Customer) searchable;
             model.addRow(new Object[]{customer.getName(), customer.getPhone(), customer.getAddress()});

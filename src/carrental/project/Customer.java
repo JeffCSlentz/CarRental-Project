@@ -52,6 +52,9 @@ public class Customer implements Searchable {
             return false;
         }
     }
-    
+    @Override
+    public boolean includes(String item) {
+        return (name.contains(item) || address.contains(item));
+    }
     
 }

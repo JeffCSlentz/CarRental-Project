@@ -17,6 +17,11 @@ public class Rental implements Searchable {
     public boolean matches(String find) {
         return ID.equals(find);
     }
+
+    @Override
+    public boolean includes(String item) {
+        return ID.contains(item);
+    }
     public enum Status {RENTED, RETURNED};
     
     String ID;

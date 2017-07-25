@@ -41,5 +41,13 @@ public class Car implements Searchable {
     public boolean matches(String find) {
         return ID.equals(find);
     }
+
+    @Override
+    public boolean includes(String item) {
+        String make = this.carSpec.getMake();
+        String model = this.carSpec.getModel();
+        String year = String.valueOf(this.carSpec.getYear());
+        return (ID.contains(item) || make.contains(item) || model.contains(item) || year.contains(item));
+    }
    
 }

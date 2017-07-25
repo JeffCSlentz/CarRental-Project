@@ -73,6 +73,10 @@ public class Controller {
         addRental(rental);
     }
     
+    public void returnCar(Car car){
+        
+    }
+    
     public LinkedList<Searchable> filterBy(String filter, searchEnum sE){
         LinkedList<Searchable> searchables;
         LinkedList<Searchable> matches = new LinkedList();
